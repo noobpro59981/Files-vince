@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel X Hub | Admin</title>
+    <style>
+        :root { --main: #8a2be2; --bg: #0f0f0f; --card: #1a1a1a; --danger: #ff4444; --success: #00ff88; }
+        body { background: var(--bg); color: #e0e0e0; font-family: sans-serif; padding: 20px; }
+        .card { background: var(--card); padding: 20px; border-radius: 12px; border: 1px solid #333; margin-bottom: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
+        h2 { color: var(--main); font-size: 1.1rem; margin-top: 0; text-transform: uppercase; }
+        
+        /* Key Table Style */
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 0.85rem; }
+        th { text-align: left; color: #888; padding-bottom: 10px; }
+        td { padding: 8px 0; border-top: 1px solid #333; }
+        
+        .status-active { color: var(--success); }
+        .status-blocked { color: var(--danger); }
+        
+        input { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #444; background: #000; color: var(--success); box-sizing: border-box; margin: 10px 0; }
+        button { background: var(--main); color: white; border: none; padding: 12px; width: 100%; border-radius: 8px; font-weight: bold; cursor: pointer; }
+        .btn-block { background: var(--danger); padding: 5px 10px; width: auto; font-size: 0.7rem; }
+        
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h2>🔑 Admin Key Manager</h2>
+        <button onclick="generateKey()">GENERATE NEW KEY</button>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>License Key</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="keyList">
+                </tbody>
+        </table>
+    </div>
+
+    <div id="loginArea" class="card">
+        <h2>🔒 User Login</h2>
+        <input type="text" id="keyInput" placeholder="Paste Key Here...">
+        <button onclick="login()">LOGIN</button>
+        <p id="msg" style="font-size: 0.8rem; margin-top: 10px;"></p>
+    </div>
+
+    <div id="injectorPanel" class="card hidden">
+        <h2 style="color: var(--success);">🚀 Injector Active</h2>
+        <p>Welcome! You are now authorized.</p>
+        <button onclick="alert('Script Injected!')">RUN MAINLUA</button>
+        <button onclick="location.reload()" style="background:#444; margin-top:10px;">LOGOUT</button>
+    </div>
+
+<script>
+    // Database simulation (Object-based)
+    let db = {}; 
+
+    function generateKey() {
+        let newKey = "PX-" + Math.random().toString(36).substring(2, 8).toUpperCase();
+        // Default status is 'active'
+        db[newKey] = "active";
+        updateTable();
+    }
+
+    function updateTable() {
+        const list = document.getElementById('keyList');
+        list.innerHTML = "";
+        
+        for (let key in db) {
+            let statusClass = db[key] === "active" ? "status-active" : "status-blocked";
+            list.innerHTML += `
+                <tr>
+                    <td><code>${key}</code></td>
+                    <td class="${statusClass}">${db[key].toUpperCase()}</td>
+                    <td>
+                        <button class="btn-block" onclick="blockKey('${key}')">BLOCK</button>
+                    </td>
+                </tr>
+            `;
+        }
+    }
+
+    function blockKey(key) {
+        db[key] = "blocked"; // Change status to blocked
+        updateTable();
+        alert("Key " + key + " has been blocked!");
+    }
+
+    function login() {
+        let input = document.getElementById('keyInput').value;
+        let msg = document.getElementById('msg');
+
+        if (!db[input]) {
+            msg.innerText = "❌ Key does not exist!";
+            msg.style.color = "var(--danger)";
+        } else if (db[input] === "blocked") {
+            msg.innerText = "🚫 This key is BLOCKED by Admin!";
+            msg.style.color = "var(--danger)";
+        } else {
+            msg.innerText = "✅ Login Success!";
+            msg.style.color = "var(--success)";
+            
+            setTimeout(() => {
+                document.getElementById('loginArea').classList.add('hidden');
+                document.getElementById('injectorPanel').classList.remove('hidden');
+            }, 1000);
+        }
+    }
+</script>
+
+</body>
+</html>
