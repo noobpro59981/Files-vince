@@ -3,252 +3,158 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Log In | C++ Website</title>
+    <title>SYSTEM HACKED | FILES HOOK</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', sans-serif;
+            font-family: 'Consolas', 'Courier New', monospace;
         }
 
         body {
-            background: linear-gradient(135deg, #16222a 0%, #3a6073 100%);
-            background-attachment: fixed;
+            background-color: #000;
+            color: #00ff00;
             min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-image: 
-                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-            background-size: 20px 20px;
-        }
-
-        .login-container {
-            background-color: rgba(255, 255, 255, 0.95);
-            padding: 3rem 2.5rem;
-            border-radius: 18px;
-            box-shadow: 0 8px 35px rgba(0, 0, 0, 0.2);
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            width: 100%;
-            max-width: 450px;
-        }
-
-        .login-header {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .login-header .icon {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, #16222a 0%, #3a6073 100%);
-            border-radius: 50%;
-            margin: 0 auto 1rem auto;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 2rem;
-        }
-
-        .login-header h2 {
-            color: #16222a;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        label {
-            display: block;
-            color: #333;
-            font-weight: 500;
-            margin-bottom: 0.5rem;
-            font-size: 0.95rem;
-        }
-
-        .input-wrapper {
-            position: relative;
-        }
-
-        .input-wrapper i {
-            position: absolute;
-            left: 1rem;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #888;
-            font-size: 1.1rem;
-        }
-
-        input[type="text"],
-        input[type="password"] {
-            width: 100%;
-            padding: 1rem 1rem 1rem 3.5rem;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            background-color: #f9f9f9;
-        }
-
-        input:focus {
-            outline: none;
-            border-color: #3a6073;
-            background-color: white;
-            box-shadow: 0 0 0 3px rgba(58, 96, 115, 0.1);
-        }
-
-        .error-message {
-            color: #dc3545;
-            font-size: 0.85rem;
-            margin-top: 0.3rem;
-            display: none;
-        }
-
-        button[type="submit"] {
-            width: 100%;
             padding: 1rem;
-            background: linear-gradient(135deg, #16222a 0%, #3a6073 100%);
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 1.1rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            margin-bottom: 1.5rem;
+            overflow-x: hidden;
         }
 
-        button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(58, 96, 115, 0.3);
-        }
-
-        .links {
+        /* Hacked header banner */
+        .hack-banner {
+            background: linear-gradient(90deg, #ff0000, #0000ff);
+            color: #fff;
+            padding: 1rem;
             text-align: center;
-            font-size: 0.95rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+            border: 2px solid #ff00ff;
+            animation: blink 0.5s infinite alternate;
         }
 
-        .links a {
-            color: #3a6073;
-            text-decoration: none;
-            font-weight: 500;
+        /* Terminal window style */
+        .terminal {
+            background-color: #0a0a0a;
+            border: 2px solid #00ff00;
+            border-radius: 5px;
+            padding: 1rem;
+            height: calc(100vh - 120px);
+            overflow-y: auto;
+            line-height: 1.5;
         }
 
-        .links a:hover {
+        /* Fake code lines */
+        .code-line {
+            margin: 0.2rem 0;
+            animation: fadeIn 0.3s linear forwards;
+            opacity: 0;
+        }
+
+        /* Different text colors for variety */
+        .red { color: #ff0000; }
+        .blue { color: #0000ff; }
+        .purple { color: #ff00ff; }
+        .yellow { color: #ffff00; }
+        .white { color: #ffffff; }
+
+        /* Blinking cursor */
+        .cursor::after {
+            content: "_";
+            animation: blink 0.8s infinite;
+        }
+
+        /* Animations */
+        @keyframes blink {
+            from { opacity: 1; }
+            to { opacity: 0.3; }
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        /* Fake file list header */
+        .file-header {
+            color: #ff00ff;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
             text-decoration: underline;
         }
 
-        .links span {
-            color: #666;
-            margin: 0 0.5rem;
-        }
-
-        /* Para sa mobile */
-        @media (max-width: 400px) {
-            .login-container {
-                padding: 2rem 1.5rem;
-                margin: 1rem;
+        /* Mobile adjustment */
+        @media (max-width: 600px) {
+            .hack-banner {
+                font-size: 1.2rem;
+            }
+            .terminal {
+                font-size: 0.9rem;
             }
         }
     </style>
-    <!-- Para sa icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <div class="login-container">
-        <div class="login-header">
-            <div class="icon"><i class="fas fa-user-lock"></i></div>
-            <h2>Mag-log in sa Account</h2>
-        </div>
+    <div class="hack-banner">⚠️ SYSTEM COMPROMISED - ALL FILES ACCESSED ⚠️</div>
 
-        <form id="loginForm" action="/cgi-bin/login.cgi" method="post">
-            <div class="form-group">
-                <label for="username">Username</label>
-                <div class="input-wrapper">
-                    <i class="fas fa-user"></i>
-                    <input type="text" id="username" name="username" placeholder="Ilagay ang username mo">
-                </div>
-                <div class="error-message" id="usernameError">Hindi puwedeng walang laman ang username</div>
-            </div>
-
-            <div class="form-group">
-                <label for="password">Password</label>
-                <div class="input-wrapper">
-                    <i class="fas fa-lock"></i>
-                    <input type="password" id="password" name="password" placeholder="Ilagay ang password mo">
-                </div>
-                <div class="error-message" id="passwordError">Hindi puwedeng walang laman ang password</div>
-            </div>
-
-            <button type="submit"><i class="fas fa-sign-in-alt"></i> Mag-log in</button>
-
-            <div class="links">
-                <a href="enter.html">developer vincee</a>
-                <span>|</span>
-                <a href="#">2026 create this</a>
-            </div>
-        </form>
+    <div class="terminal">
+        <div class="code-line">[+] INITIATING HACK PROTOCOL v3.14... <span class="yellow">DONE</span></div>
+        <div class="code-line">[+] SCANNING NETWORK PORTS... <span class="yellow">1337 | 443 | 80 | 22</span> <span class="green">OPEN</span></div>
+        <div class="code-line">[+] BYPASSING FIREWALL... <span class="red">WARNING: FIREWALL DETECTED</span> <span class="yellow">OVERRIDE SUCCESS</span></div>
+        <div class="code-line">[+] CRACKING ADMIN PASSWORD... <span class="blue">TRYING: PASSWORD123</span> <span class="red">FAILED</span></div>
+        <div class="code-line">[+] CRACKING ADMIN PASSWORD... <span class="blue">TRYING: VINCEE2026</span> <span class="yellow">SUCCESS</span></div>
+        <div class="code-line">[+] ACCESSING ROOT DIRECTORY... <span class="yellow">GRANTED</span></div>
+        <br>
+        
+        <div class="file-header">>>> ALL FILES FOUND & EXTRACTED <<<</div>
+        <div class="code-line"><span class="purple">[FILE]</span> /cgi-bin/login.cgi <span class="white">- SIZE: 4.2KB</span> <span class="green">DOWNLOADED</span></div>
+        <div class="code-line"><span class="purple">[FILE]</span> /index.html <span class="white">- SIZE: 2.8KB</span> <span class="green">DOWNLOADED</span></div>
+        <div class="code-line"><span class="purple">[FILE]</span> /login.html <span class="white">- SIZE: 3.5KB</span> <span class="green">DOWNLOADED</span></div>
+        <div class="code-line"><span class="purple">[FILE]</span> /enter.html <span class="white">- SIZE: 3.1KB</span> <span class="green">DOWNLOADED</span></div>
+        <div class="code-line"><span class="purple">[FILE]</span> /backend.cgi <span class="white">- SIZE: 4.7KB</span> <span class="green">DOWNLOADED</span></div>
+        <div class="code-line"><span class="purple">[DATABASE]</span> users.db <span class="white">- ENTRIES: 127</span> <span class="green">DUMPED</span></div>
+        <div class="code-line"><span class="purple">[LOGS]</span> server.log <span class="white">- ENTRIES: 568</span> <span class="green">EXTRACTED</span></div>
+        <br>
+        
+        <div class="code-line">[+] INSTALLING BACKDOOR... <span class="yellow">DONE - BACKDOOR: 192.168.1.100:1337</span></div>
+        <div class="code-line">[+] CLEARING TRACES... <span class="yellow">DONE</span></div>
+        <br>
+        
+        <div class="code-line red">>>> WARNING: ALL SYSTEM DATA HAS BEEN COPIED <<<</div>
+        <div class="code-line yellow">>>> PRESS REFRESH TO RESET OR CLICK <a href="enter.html" style="color:#ff00ff;">HERE</a> TO GO BACK <<<</div>
+        <br>
+        <div class="code-line cursor">WAITING FOR NEXT COMMAND</div>
     </div>
 
     <script>
-        // JavaScript para sa frontend validation
-        const loginForm = document.getElementById('loginForm');
-        const username = document.getElementById('username');
-        const password = document.getElementById('password');
-        const usernameError = document.getElementById('usernameError');
-        const passwordError = document.getElementById('passwordError');
-
-        // I-validate kapag mag-su-submit
-        loginForm.addEventListener('submit', function(e) {
-            let isValid = true;
-
-            // Check username
-            if (username.value.trim() === '') {
-                usernameError.style.display = 'block';
-                username.style.borderColor = '#dc3545';
-                isValid = false;
-            } else {
-                usernameError.style.display = 'none';
-                username.style.borderColor = '#e0e0e0';
-            }
-
-            // Check password
-            if (password.value.trim() === '') {
-                passwordError.style.display = 'block';
-                password.style.borderColor = '#dc3545';
-                isValid = false;
-            } else {
-                passwordError.style.display = 'none';
-                password.style.borderColor = '#e0e0e0';
-            }
-
-            // Huwag ipasa ang form kung hindi valid
-            if (!isValid) {
-                e.preventDefault();
-            }
+        // Fake loading effect para parang nagta-type pa ng code
+        const terminal = document.querySelector('.terminal');
+        const lines = terminal.querySelectorAll('.code-line');
+        
+        lines.forEach((line, index) => {
+            line.style.animationDelay = `${index * 0.1}s`;
         });
 
-        // I-reset ang error kapag nagta-type
-        username.addEventListener('input', function() {
-            if (username.value.trim() !== '') {
-                usernameError.style.display = 'none';
-                username.style.borderColor = '#e0e0e0';
-            }
-        });
+        // Random na pagdagdag ng fake code lines after 5 seconds
+        setTimeout(() => {
+            const newLines = [
+                "[+] SCANNING ADDITIONAL FILES... <span class='white'>README.TXT</span> <span class='green'>FOUND</span>",
+                "[+] READING README.TXT... <span class='blue'>CONTENT: 'CONFIDENTIAL SYSTEM DATA - RESTRICTED ACCESS'</span>",
+                "[+] SENDING DATA TO REMOTE SERVER... <span class='yellow'>DONE</span>"
+            ];
 
-        password.addEventListener('input', function() {
-            if (password.value.trim() !== '') {
-                passwordError.style.display = 'none';
-                password.style.borderColor = '#e0e0e0';
-            }
-        });
+            newLines.forEach((newLine, idx) => {
+                setTimeout(() => {
+                    const div = document.createElement('div');
+                    div.className = 'code-line';
+                    div.style.animationDelay = '0s';
+                    div.innerHTML = newLine;
+                    terminal.appendChild(div);
+                    terminal.scrollTop = terminal.scrollHeight;
+                }, idx * 0.5 * 1000);
+            });
+        }, 5000);
     </script>
 </body>
 </html>
 
+            
