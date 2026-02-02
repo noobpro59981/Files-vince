@@ -1,119 +1,254 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel X Hub | Admin</title>
+    <title>Log In | C++ Website</title>
     <style>
-        :root { --main: #8a2be2; --bg: #0f0f0f; --card: #1a1a1a; --danger: #ff4444; --success: #00ff88; }
-        body { background: var(--bg); color: #e0e0e0; font-family: sans-serif; padding: 20px; }
-        .card { background: var(--card); padding: 20px; border-radius: 12px; border: 1px solid #333; margin-bottom: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
-        h2 { color: var(--main); font-size: 1.1rem; margin-top: 0; text-transform: uppercase; }
-        
-        /* Key Table Style */
-        table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 0.85rem; }
-        th { text-align: left; color: #888; padding-bottom: 10px; }
-        td { padding: 8px 0; border-top: 1px solid #333; }
-        
-        .status-active { color: var(--success); }
-        .status-blocked { color: var(--danger); }
-        
-        input { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #444; background: #000; color: var(--success); box-sizing: border-box; margin: 10px 0; }
-        button { background: var(--main); color: white; border: none; padding: 12px; width: 100%; border-radius: 8px; font-weight: bold; cursor: pointer; }
-        .btn-block { background: var(--danger); padding: 5px 10px; width: auto; font-size: 0.7rem; }
-        
-        .hidden { display: none; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #16222a 0%, #3a6073 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-image: 
+                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        .login-container {
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 3rem 2.5rem;
+            border-radius: 18px;
+            box-shadow: 0 8px 35px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            width: 100%;
+            max-width: 450px;
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .login-header .icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #16222a 0%, #3a6073 100%);
+            border-radius: 50%;
+            margin: 0 auto 1rem auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+        }
+
+        .login-header h2 {
+            color: #16222a;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            color: #333;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-wrapper i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #888;
+            font-size: 1.1rem;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 1rem 1rem 1rem 3.5rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background-color: #f9f9f9;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #3a6073;
+            background-color: white;
+            box-shadow: 0 0 0 3px rgba(58, 96, 115, 0.1);
+        }
+
+        .error-message {
+            color: #dc3545;
+            font-size: 0.85rem;
+            margin-top: 0.3rem;
+            display: none;
+        }
+
+        button[type="submit"] {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #16222a 0%, #3a6073 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            margin-bottom: 1.5rem;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(58, 96, 115, 0.3);
+        }
+
+        .links {
+            text-align: center;
+            font-size: 0.95rem;
+        }
+
+        .links a {
+            color: #3a6073;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .links a:hover {
+            text-decoration: underline;
+        }
+
+        .links span {
+            color: #666;
+            margin: 0 0.5rem;
+        }
+
+        /* Para sa mobile */
+        @media (max-width: 400px) {
+            .login-container {
+                padding: 2rem 1.5rem;
+                margin: 1rem;
+            }
+        }
     </style>
+    <!-- Para sa icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+    <div class="login-container">
+        <div class="login-header">
+            <div class="icon"><i class="fas fa-user-lock"></i></div>
+            <h2>Mag-log in sa Account</h2>
+        </div>
 
-    <div class="card">
-        <h2>🔑 Admin Key Manager</h2>
-        <button onclick="generateKey()">GENERATE NEW KEY</button>
-        
-        <table>
-            <thead>
-                <tr>
-                    <th>License Key</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody id="keyList">
-                </tbody>
-        </table>
+        <form id="loginForm" action="/cgi-bin/login.cgi" method="post">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <div class="input-wrapper">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="username" name="username" placeholder="Ilagay ang username mo">
+                </div>
+                <div class="error-message" id="usernameError">Hindi puwedeng walang laman ang username</div>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <div class="input-wrapper">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="password" name="password" placeholder="Ilagay ang password mo">
+                </div>
+                <div class="error-message" id="passwordError">Hindi puwedeng walang laman ang password</div>
+            </div>
+
+            <button type="submit"><i class="fas fa-sign-in-alt"></i> Mag-log in</button>
+
+            <div class="links">
+                <a href="enter.html">developer vincee</a>
+                <span>|</span>
+                <a href="#">2026 create this</a>
+            </div>
+        </form>
     </div>
 
-    <div id="loginArea" class="card">
-        <h2>🔒 User Login</h2>
-        <input type="text" id="keyInput" placeholder="Paste Key Here...">
-        <button onclick="login()">LOGIN</button>
-        <p id="msg" style="font-size: 0.8rem; margin-top: 10px;"></p>
-    </div>
+    <script>
+        // JavaScript para sa frontend validation
+        const loginForm = document.getElementById('loginForm');
+        const username = document.getElementById('username');
+        const password = document.getElementById('password');
+        const usernameError = document.getElementById('usernameError');
+        const passwordError = document.getElementById('passwordError');
 
-    <div id="injectorPanel" class="card hidden">
-        <h2 style="color: var(--success);">🚀 Injector Active</h2>
-        <p>Welcome! You are now authorized.</p>
-        <button onclick="alert('Script Injected!')">RUN MAINLUA</button>
-        <button onclick="location.reload()" style="background:#444; margin-top:10px;">LOGOUT</button>
-    </div>
+        // I-validate kapag mag-su-submit
+        loginForm.addEventListener('submit', function(e) {
+            let isValid = true;
 
-<script>
-    // Database simulation (Object-based)
-    let db = {}; 
+            // Check username
+            if (username.value.trim() === '') {
+                usernameError.style.display = 'block';
+                username.style.borderColor = '#dc3545';
+                isValid = false;
+            } else {
+                usernameError.style.display = 'none';
+                username.style.borderColor = '#e0e0e0';
+            }
 
-    function generateKey() {
-        let newKey = "PX-" + Math.random().toString(36).substring(2, 8).toUpperCase();
-        // Default status is 'active'
-        db[newKey] = "active";
-        updateTable();
-    }
+            // Check password
+            if (password.value.trim() === '') {
+                passwordError.style.display = 'block';
+                password.style.borderColor = '#dc3545';
+                isValid = false;
+            } else {
+                passwordError.style.display = 'none';
+                password.style.borderColor = '#e0e0e0';
+            }
 
-    function updateTable() {
-        const list = document.getElementById('keyList');
-        list.innerHTML = "";
-        
-        for (let key in db) {
-            let statusClass = db[key] === "active" ? "status-active" : "status-blocked";
-            list.innerHTML += `
-                <tr>
-                    <td><code>${key}</code></td>
-                    <td class="${statusClass}">${db[key].toUpperCase()}</td>
-                    <td>
-                        <button class="btn-block" onclick="blockKey('${key}')">BLOCK</button>
-                    </td>
-                </tr>
-            `;
-        }
-    }
+            // Huwag ipasa ang form kung hindi valid
+            if (!isValid) {
+                e.preventDefault();
+            }
+        });
 
-    function blockKey(key) {
-        db[key] = "blocked"; // Change status to blocked
-        updateTable();
-        alert("Key " + key + " has been blocked!");
-    }
+        // I-reset ang error kapag nagta-type
+        username.addEventListener('input', function() {
+            if (username.value.trim() !== '') {
+                usernameError.style.display = 'none';
+                username.style.borderColor = '#e0e0e0';
+            }
+        });
 
-    function login() {
-        let input = document.getElementById('keyInput').value;
-        let msg = document.getElementById('msg');
-
-        if (!db[input]) {
-            msg.innerText = "❌ Key does not exist!";
-            msg.style.color = "var(--danger)";
-        } else if (db[input] === "blocked") {
-            msg.innerText = "🚫 This key is BLOCKED by Admin!";
-            msg.style.color = "var(--danger)";
-        } else {
-            msg.innerText = "✅ Login Success!";
-            msg.style.color = "var(--success)";
-            
-            setTimeout(() => {
-                document.getElementById('loginArea').classList.add('hidden');
-                document.getElementById('injectorPanel').classList.remove('hidden');
-            }, 1000);
-        }
-    }
-</script>
-
+        password.addEventListener('input', function() {
+            if (password.value.trim() !== '') {
+                passwordError.style.display = 'none';
+                password.style.borderColor = '#e0e0e0';
+            }
+        });
+    </script>
 </body>
 </html>
+
